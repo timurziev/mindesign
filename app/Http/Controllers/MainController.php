@@ -14,9 +14,11 @@ class MainController extends Controller
     public function index()
     {
         $url = file_get_contents('https://markethot.ru/export/bestsp');
-        $data = collect(json_decode($url, true));
+        $data = json_decode($url, true);
+        $products = collect($data['products'])->sortBy('sales')->reverse()->toArray();;
+        $products = array_slice($products, 0, 20);
 
-        return response()->json($data['products']);
+        return view('products', compact('products'));
     }
 
     /**
