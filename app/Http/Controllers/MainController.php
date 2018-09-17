@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
 
 class MainController extends Controller
 {
@@ -16,7 +17,9 @@ class MainController extends Controller
         $url = file_get_contents('https://markethot.ru/export/bestsp');
         $data = json_decode($url, true);
         $products = collect($data['products'])->sortBy('sales')->reverse()->toArray();;
-        $products = array_slice($products, 0, 20);
+//        $products = array_slice($products, 0, 20);
+
+        $products = Product::paginateArray($products, 10);
 
         return view('products', compact('products'));
     }

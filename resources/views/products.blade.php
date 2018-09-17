@@ -11,6 +11,6 @@
                 </div>
             </div>
         @endforeach
-        {{--<div>{{$product->render()}}</div>--}}
+        <div>{{$products->render()}}</div>
     </div>
 @endsection
